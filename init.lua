@@ -1,11 +1,10 @@
 require("config.lazy")
 require("which-key")
 local builtin = require('telescope.builtin')
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("leap").create_default_mappings()
+require("leap")
 
 require("mason-lspconfig").setup_handlers {
 	-- The first entry (without a key) will be the default handler
@@ -26,7 +25,10 @@ vim.wo.relativenumber = true
 
 vim.cmd.colorscheme "vscode"
 
-vim.o.tabstop = 4
+vim.o.tabstop = 8
+vim.o.shiftwidth = 8
+vim.o.expandtab = true
+
 vim.o.wrap = false
 
 
@@ -59,14 +61,27 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<C-M>", vim.lsp.buf.format, { desc = "Format current file" })
+vim.keymap.set("n", "<C-S>", ":w<CR>", { desc = "Save File" })
+vim.keymap.set("i", "<C-S>", "<Esc>:w<CR>a", { desc = "Save File" })
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
-vim.keymap.set('i', '<F9>', '<Esc>:w<CR>:term python %<CR>', { desc = "Runs current Python file in a new window" })
-vim.keymap.set('n', '<F9>', ':w<CR>:term python %<CR>', { desc = "Runs current Python file in a new window" })
+vim.keymap.set('i', '<F7>', '<Esc>:w<CR><c-w>s:term gcc % -o %:r<CR>', { desc = "Compiles current C file" })
+vim.keymap.set('n', '<F7>', ':w<CR><c-w>s:term gcc % -o %:r<CR>', { desc = "Compiles current C file" })
+
+vim.keymap.set('i', '<F8>', '<Esc>:w<CR><c-w>s:term ./%:r<CR>', { desc = "Runs current C file" })
+vim.keymap.set('n', '<F8>', ':w<CR><c-w>s:term ./%:r<CR>', { desc = "Runs current C file" })
+
+vim.keymap.set('i', '<F9>', '<Esc>:w<CR><c-w>s:term python %<CR>', { desc = "Runs current Python file in a new window" })
+vim.keymap.set('n', '<F9>', ':w<CR><c-w>s:term python %<CR>', { desc = "Runs current Python file in a new window" })
+
+-- Leap Keymaps
+
+vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)")
+vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
 
 -- Autoinsert into Terminal
 
@@ -78,3 +93,6 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
 		end
 	end
 })
+
+-- Highlight Yank
+require('tiny-glimmer').setup()

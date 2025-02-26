@@ -6,6 +6,7 @@ return {
         "neovim/nvim-lspconfig",
     },
     "folke/which-key.nvim",
+	"rachartier/tiny-glimmer.nvim",
 	'Mofiqul/vscode.nvim',
 	{
 		'stevearc/oil.nvim',
