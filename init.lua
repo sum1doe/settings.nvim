@@ -19,6 +19,11 @@ vim.opt.shiftwidth = 2
 
 vim.o.wrap = false
 
+-- CMDs
+
+vim.api.nvim_create_user_command("Config", "tabf ~/.config/nvim/init.lua", {})
+vim.api.nvim_create_user_command("Reload", "luafile %", {})
+
 -- Keymaps
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", {desc = "Open parent directory"})
