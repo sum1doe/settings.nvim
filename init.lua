@@ -56,13 +56,18 @@ vim.api.nvim_create_autocmd('FileType', {
 	end,
 })
 
+-- CMDs
+
+vim.api.nvim_create_user_command("Config", "tabf ~/.config/nvim/init.lua", {})
+vim.api.nvim_create_user_command("Reload", "luafile %", {})
+
 
 -- Keymaps
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<C-M>", vim.lsp.buf.format, { desc = "Format current file" })
 vim.keymap.set("n", "<C-S>", ":w<CR>", { desc = "Save File" })
-vim.keymap.set("i", "<C-S>", "<Esc>:w<CR>a", { desc = "Save File" })
+vim.keymap.set("i", "<C-S>", "<Esc>:w<CR>", { desc = "Save File" })
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
