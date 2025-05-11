@@ -1,7 +1,7 @@
 require("config.lazy")
 require("which-key")
 local builtin = require('telescope.builtin')
-
+require("maple").setup()
 require("leap")
 
 for k, i in pairs(require("conform").formatters) do
@@ -69,6 +69,7 @@ vim.keymap.set({"n", "x", "o"}, "s", "<Plug>(leap-forward)")
 vim.keymap.set({"n", "x", "o"}, "S", "<Plug>(leap-backward)")
 
 -- Autoinsert into Terminal
+
 
 vim.api.nvim_create_autocmd({"TermOpen", "BufEnter"}, {
     pattern = {"*"},
