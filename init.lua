@@ -3,21 +3,20 @@ require("which-key")
 local builtin = require('telescope.builtin')
 require("mason").setup()
 require("mason-lspconfig").setup()
-
+require("maple").setup()
 require("leap")
-
 require("mason-lspconfig").setup_handlers {
-	-- The first entry (without a key) will be the default handler
-	-- and will be called for each installed server that doesn't have
-	-- a dedicated handler.
-	function(server_name) -- default handler (optional)
-		require("lspconfig")[server_name].setup {}
-	end,
-	-- Next, you can provide a dedicated handler for specific servers.
-	-- For example, a handler override for the `rust_analyzer`:
-	["rust_analyzer"] = function()
-		require("rust-tools").setup {}
-	end
+        -- The first entry (without a key) will be the default handler
+        -- and will be called for each installed server that doesn't have
+        -- a dedicated handler.
+        function(server_name) -- default handler (optional)
+                require("lspconfig")[server_name].setup {}
+        end,
+        -- Next, you can provide a dedicated handler for specific servers.
+        -- For example, a handler override for the `rust_analyzer`:
+        ["rust_analyzer"] = function()
+                require("rust-tools").setup {}
+        end
 }
 
 vim.wo.number = true
@@ -34,32 +33,34 @@ vim.o.wrap = false
 
 -- C LSP
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = 'c',
-	callback = function(ev)
-		vim.lsp.start({
-			name = 'CLang',
-			cmd = { 'clangd', '--background-index' },
-			root_dir = vim.fs.root(ev.buf, { 'READ_ME.txt' }),
-		})
-	end,
+        pattern = 'c',
+        callback = function(ev)
+                vim.lsp.start({
+                        name = 'CLang',
+                        cmd = { 'clangd', '--background-index' },
+                        root_dir = vim.fs.root(ev.buf, { 'READ_ME.txt' }),
+                })
+        end,
 })
 
 -- Lua LSP
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = 'lua',
-	callback = function(ev)
-		vim.lsp.start({
-			name = 'Lua',
-			cmd = { 'lua-language-server' },
-			root_dir = vim.fs.root(ev.buf, { 'READ_ME.txt' }),
-		})
-	end,
+        pattern = 'lua',
+        callback = function(ev)
+                vim.lsp.start({
+                        name = 'Lua',
+                        cmd = { 'lua-language-server' },
+                        root_dir = vim.fs.root(ev.buf, { 'READ_ME.txt' }),
+                })
+        end,
 })
 
 
 -- Keymaps
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "m", "<CMD>Maple<CR>", { desc = "Open maple notes" })
+
 vim.keymap.set("n", "<C-M>", vim.lsp.buf.format, { desc = "Format current file" })
 vim.keymap.set("n", "<C-S>", ":w<CR>", { desc = "Save File" })
 vim.keymap.set("i", "<C-S>", "<Esc>:w<CR>a", { desc = "Save File" })
@@ -86,12 +87,12 @@ vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
 -- Autoinsert into Terminal
 
 vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
-	pattern = { "*" },
-	callback = function()
-		if vim.opt.buftype:get() == "terminal" then
-			vim.cmd(":startinsert")
-		end
-	end
+        pattern = { "*" },
+        callback = function()
+                if vim.opt.buftype:get() == "terminal" then
+                        vim.cmd(":startinsert")
+                end
+        end
 })
 
 -- Highlight Yank
