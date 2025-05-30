@@ -1,5 +1,19 @@
 return {
     {
+"adigitoleo/haunt.nvim",
+"ggandor/leap.nvim",
+"neovim/nvim-lspconfig",
+"rcarriga/nvim-notify",
+"Mofiqul/vscode.nvim",
+"folke/which-key.nvim",
+{
+    "rachartier/tiny-glimmer.nvim",
+    event = "VeryLazy",
+    priority = 10, -- Needs to be a really low priority, to catch others plugins keybindings.
+    opts = {
+        -- your configuration
+    },
+},
         "forest-nvim/maple.nvim",
         config = function()
             require("maple").setup({

@@ -1,0 +1,9 @@
+TODO:
+ - Make a plugins folder, in which all new plugins and related settings & keybinds go. 
+	> Each file should be the name of the repo.
+	> Might need to figure out some error handling for this 
+ - Make a vanilla folder, in which all vim config options and custom keybinds (unrelated to plugins) go
+ - Make a lib folder, in which all self defined utility functions go.
+ - Will need to somehow call all of these from init.lua, likely by virtue of for loop.
+ - Figure out how to pass all the plugins into lazy's loading scheme.
+	> Feed a table to lazy's import section, consisting of plugin.name?
