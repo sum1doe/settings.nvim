@@ -41,4 +41,5 @@ luac.out
 
 # Install Specifics
 node_modules/*
+node_modules
 *.json

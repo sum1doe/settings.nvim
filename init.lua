@@ -44,10 +44,19 @@ end
 
 function get_file_extension(str)
 	local pos = (str:reverse()):find("%.")
+	local pos2 = (str:reverse()):find("/")
 	if pos == nil then
 		return ""
-	elseif pos > (str:reverse()):find("/") then
-		return "well"
+	elseif pos2 == nil or pos > pos2 then
+		return ""
+	end
+	return str:sub(-pos+1, -1)
+end
+
+function get_file_name(str)
+	local pos = (str:reverse()):find("/")
+	if pos == nil then
+		return str
 	end
 	return str:sub(-pos+1, -1)
 end
@@ -100,6 +109,8 @@ vim.keymap.set("n", "<C-z>", "u", {desc = "Undo"})
 vim.keymap.set("i", "<C-y>", "<Esc><C-r>i", {desc = "Undo"})
 vim.keymap.set("n", "<C-y>", "<C-r>", {desc = "Undo"})
 
+vim.keymap.set({"i", "n"}, "<C-k>", vim.lsp.buf.hover, {desc="Give info about the thing you're hovering over"})
+
 vim.keymap.set('n', '<leader>n', ':noh<cr>', {desc='Make highlights go away'})
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files,
@@ -110,6 +121,7 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {desc = 'Telescope buffers'})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags,
                {desc = 'Telescope help tags'})
 
+local last_exec = os.time()
 
 function exec_file()
 	-- TODO:
@@ -121,23 +133,32 @@ function exec_file()
 	end
 
 	-- save all files
-	vim.api.nvim_input(":wa<CR>")
+	vim.api.nvim_command(":wa")
 	-- If you have a better option please do replace this with it.
 	
 	-- Get filename and filetype from filename
 	local ext =get_file_extension(vim.api.nvim_buf_get_name(0)) 
 
+
 	-- Figure out filetype, and execute/compile+execute
-	if ext == "lua" then
+	if os.time() - last_exec < 1 then
+		print("Too Soon")
+	elseif ext == "lua" then
 		if (vim.api.nvim_buf_get_name(0)):find("nvim/init.lua",-13)~=nil then
 			vim.api.nvim_command(":Reload")
 		end
 	elseif ext == "py" then
-		vim.api.nvim_command("python "..vim.api.nvim_buf_get_name(0))
+		vim.api.nvim_command(":HauntTerm python "..get_file_name(vim.api.nvim_buf_get_name(0)))
 	elseif ext == "c" then
-		print("How bad is it?")
-		print(filereadable("./makefile")==1)
+		if vim.fn.filereadable(vim.loop.cwd().."/makefile")==1 then
+			vim.api.nvim_command(":HauntTerm make")
+		else
+			local filename = get_file_name(vim.api.nvim_buf_get_name(0))
+			vim.api.nvim_command(":HauntTerm gcc "..filename.." -o "..filename:sub(1,-3))
+		end
 	end
+
+	last_exec = os.time()
 end
 
 vim.keymap.set({"i","n"}, "<F9>", exec_file, {desc="Try run the current file, compiling (with make) if necessary."})
@@ -163,7 +184,7 @@ vim.keymap.set('n', '<F8>', ':w<CR><c-w>s:term ./%:r<CR>',
   --             {desc = "Runs current Python file in a new window"})
 
 
-vim.keymap.set('n', '<leader>h', '<cmd>HauntTerm -t Nvim<cr>', {desc="Open Haunt Term"})
+vim.keymap.set('n', '<leader>h', '<cmd>HauntTerm -t NVim<cr>', {desc="Open Haunt Term"})
 vim.keymap.set('t', '<leader>h', '<C-\\><C-n><cmd>q<cr>', {desc="Close current (Haunt) Terminal page."})
 vim.keymap.set('t', '<cr><cr>', '<C-\\><C-n><cmd>q<cr>', {desc="Close current (Haunt) Terminal page."})
 
@@ -243,3 +264,18 @@ vim.api.nvim_create_user_command("Format", function(args)
         range = range
     })
 end, {range = true})
+
+-- LSP Stuff
+--vim.lsp.enable("ccls")
+--vim.lsp.set_log_level("debug")
+vim.lsp.config("ccls", {
+    init_options = {
+		compilationDatabaseDirectory = "build";
+		index = {
+			threads = 0;
+		}; 
+		clang = {
+			excludeArgs = { "-frounding-math"} ;
+		};
+    }
+})
