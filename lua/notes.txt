@@ -1,9 +1,19 @@
 TODO:
- - Make a plugins folder, in which all new plugins and related settings & keybinds go. 
-	> Each file should be the name of the repo.
-	> Might need to figure out some error handling for this 
- - Make a vanilla folder, in which all vim config options and custom keybinds (unrelated to plugins) go
- - Make a lib folder, in which all self defined utility functions go.
- - Will need to somehow call all of these from init.lua, likely by virtue of for loop.
- - Figure out how to pass all the plugins into lazy's loading scheme.
-	> Feed a table to lazy's import section, consisting of plugin.name?
+
+Figure out why Tinyglimmer keeps yapping about AnimationFactory
+Harpoon
+Telescope
+Treesitter
+LSP Stuff
+unified (diff viewer)
+
+Figure out a better scheme for runner
+ - Convert current function to :Compile and :Run
+ - map f9 to run
+ - map f8 to compile
+
+Add the {} () [] "" expansion thing.
+ > if type normally, add 2 "
+ > if next char is ", go right by one character
+ > if in the middle of "", and <CR> then <CR> and indent properly.
+    > Probably delete ), add new line of properly indented ), then add in indentation
