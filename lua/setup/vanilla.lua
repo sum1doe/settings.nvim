@@ -20,8 +20,8 @@ vim.keymap.set("n", "<C-z>", "u", {desc = "Undo"})
 vim.keymap.set("i", "<C-y>", "<Esc><C-r>i", {desc = "Undo"})
 vim.keymap.set("n", "<C-y>", "<C-r>", {desc = "Undo"})
 
-vim.keymap.set({"i","n"}, "<A-k>", "ddkkp", {desc="Swap lines up"})
-vim.keymap.set({"i","n"}, "<A-j>", "ddp", {desc="Swap lines up"})
+vim.keymap.set({"i","n"}, "<A-k>", ":m .-2<CR>", {desc="Swap lines up"})
+vim.keymap.set({"i","n"}, "<A-j>", ":m .+1<CR>", {desc="Swap lines up"})
 
 
 -- Editor
