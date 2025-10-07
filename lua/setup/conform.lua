@@ -10,10 +10,10 @@ require("conform").setup({
         python = {"isort", "blue"},
         lua = {"lua-format"}
     },
-    format_on_save = function(bufnr)
-        print("Formatting")
-        return {timeout_ms = 500, lsp_format = "fallback"}
-    end
+	-- format_on_save = function(bufnr)
+    --    print("Formatting")
+    --    return {timeout_ms = 500, lsp_format = "fallback"}
+    -- end
 
 })
 

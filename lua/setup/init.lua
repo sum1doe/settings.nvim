@@ -29,7 +29,7 @@ while a ~= nil do
 	name, _ = a:gsub(".lua", "")
 	if not includes(black_list, name) then 
 		require("setup."..name)
-		--print(name)
+		-- print(name)
 	end
 	a = file:read("*l")
 end

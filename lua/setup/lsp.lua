@@ -1,21 +1,31 @@
-vim.keymap.set({"i", "n"}, "<C-k>", vim.lsp.buf.hover, {desc="Give info about the thing you're hovering over"})
-vim.keymap.set("n", "<C-M>", vim.lsp.buf.format, {desc = "Format current file"})
+lspconfig_obj = require("lspconfig")
+lspconfig_obj.pylsp.setup{}
 
 
--- LSP Stuff
---vim.lsp.enable("ccls")
---vim.lsp.set_log_level("debug")
-vim.lsp.config("ccls", {
-    init_options = {
-		compilationDatabaseDirectory = "build";
-		index = {
-			threads = 0;
-		}; 
-		clang = {
-			excludeArgs = { "-frounding-math"} ;
-		};
-    }
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts, { desc = "[g]o to [D]eclaration" })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts, { desc = "[g]o to [d]efinition" })
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts, { desc = "Show lsp information for whatever the cursor is over" })
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+	vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts, { desc = "Open up a Diagnostic float for the error under the cursor." })
+  end,
 })
+
 
 return {
 	"neovim/nvim-lspconfig",

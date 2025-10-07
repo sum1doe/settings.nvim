@@ -13,6 +13,12 @@ vim.o.wrap = false
 vim.keymap.set('n', '<Tab>', ':tabn<CR>', {desc = "Go to next tab", silent=true})
 vim.keymap.set('n', '<S-Tab>', ':tabn -1<CR>', {desc = "Go to prev tab", silent=true})
 
+-- Window Navigation
+vim.keymap.set('n', 'H', '<C-w>h', {desc = "Go to left window"})
+vim.keymap.set('n', 'L', '<C-w>l', {desc = "Go to right window"})
+vim.keymap.set('n', 'J', '<C-w>j', {desc = "Go to bottom window"})
+vim.keymap.set('n', 'K', '<C-w>k', {desc = "Go to top window"})
+
 
 -- Code Editing
 vim.keymap.set("i", "<C-z>", "<Esc>ui", {desc = "Undo"})
