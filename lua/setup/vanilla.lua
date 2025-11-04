@@ -42,7 +42,18 @@ vim.keymap.set('n', '<leader>n', ':noh<cr>', {desc='Make highlights go away'})
 vim.keymap.set("n", "<C-S>", ":w<CR>", {desc = "Save File"})
 vim.keymap.set("i", "<C-S>", "<Esc>:w<CR>", {desc = "Save File"})
 
+-- Umlaute
+vim.keymap.set("i", "<A-a>", "ä")
+vim.keymap.set("i", "<A-e>", "ë")
+vim.keymap.set("i", "<A-i>", "ï")
+vim.keymap.set("i", "<A-o>", "ö")
+vim.keymap.set("i", "<A-u>", "ü")
 
+vim.keymap.set("i", "<A-<S-a>>", "Ä")
+vim.keymap.set("i", "<A-<S-e>>", "Ë")
+vim.keymap.set("i", "<A-<S-i>>", "Ï")
+vim.keymap.set("i", "<A-<S-o>>", "Ö")
+vim.keymap.set("i", "<A-<S-u>>", "Ü")
 
 -- Autoinsert into Terminal
 
