@@ -49,11 +49,11 @@ vim.keymap.set("i", "<A-i>", "ï")
 vim.keymap.set("i", "<A-o>", "ö")
 vim.keymap.set("i", "<A-u>", "ü")
 
-vim.keymap.set("i", "<A-<S-a>>", "Ä")
-vim.keymap.set("i", "<A-<S-e>>", "Ë")
-vim.keymap.set("i", "<A-<S-i>>", "Ï")
-vim.keymap.set("i", "<A-<S-o>>", "Ö")
-vim.keymap.set("i", "<A-<S-u>>", "Ü")
+vim.keymap.set("i", "<A-S-a>", "Ä")
+vim.keymap.set("i", "<A-S-e>", "Ë")
+vim.keymap.set("i", "<A-S-i>", "Ï")
+vim.keymap.set("i", "<A-S-o>", "Ö")
+vim.keymap.set("i", "<A-S-u>", "Ü")
 
 -- Autoinsert into Terminal
 
