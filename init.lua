@@ -1,5 +1,6 @@
 require("config.lazy")
 require("setup") 
+
 -- Outsource all the module loading.  
 -- setup/vanilla.lua contains all the relevant keybinds etc.
 --

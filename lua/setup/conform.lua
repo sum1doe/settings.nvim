@@ -7,7 +7,7 @@ require("conform").setup({
             "clang-format"
             -- "ast-grep",
         },
-        python = {"isort", "blue"},
+        python = {"isort", "black"},
         lua = {"lua-format"}
     },
 	-- format_on_save = function(bufnr)
