@@ -8,7 +8,7 @@ require("conform").setup({
             -- "ast-grep",
         },
         python = {"isort", "black"},
-        lua = {"lua-format"}
+        lua = {"stylua"}
     },
 	-- format_on_save = function(bufnr)
     --    print("Formatting")
