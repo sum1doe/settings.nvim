@@ -42,11 +42,12 @@ while a ~= nil do
 
 	num_total = num_total + 1
 
-	ok, module = pcall(require, ("setup."..name))
+	ok, error = pcall(require, ("setup."..name))
 	if ok then
 		num_loaded = num_loaded + 1
 	else
 		print("setup."..name.." had a problem while loading")
+		print(error)
 	end
 
 	::finally::
