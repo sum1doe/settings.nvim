@@ -1,7 +1,7 @@
 -- Conform for Formatting
 
 require("conform").setup({
-    -- log_level = vim.log.levels.DEBUG,
+    log_level = vim.log.levels.DEBUG,
     formatters_by_ft = {
         c = {
             "clang-format"
@@ -14,14 +14,14 @@ require("conform").setup({
     --    print("Formatting")
     --    return {timeout_ms = 500, lsp_format = "fallback"}
     -- end
-
+ -- [[--style="{IndentWidth: 4}"]]
 })
 
-require("conform").formatters.clang_format = {
+require("conform").formatters["clang-format"] = {
     ---[[]] prepend_args = {[[--style="{IndentWidth: 4}"]]}
 
     ---[[
-    prepend_args = function() return {[[--style="{IndentWidth: 4}"]]} end
+    prepend_args = {[[--style={IndentWidth: 4}]]}
     -- ]]
     ---[[]] prepend_args = function() return {"--style=\"{IndentWidth:4}\""} end
 }

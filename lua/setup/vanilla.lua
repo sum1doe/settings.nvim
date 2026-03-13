@@ -55,6 +55,8 @@ vim.keymap.set("i", "<A-S-i>", "Ï")
 vim.keymap.set("i", "<A-S-o>", "Ö")
 vim.keymap.set("i", "<A-S-u>", "Ü")
 
+vim.cmd [[ autocmd BufRead,BufNewFile *.ino set filetype=c ]]
+
 -- Autoinsert into Terminal
 
 vim.api.nvim_create_autocmd({"TermOpen", "BufEnter"}, {
@@ -66,13 +68,6 @@ vim.api.nvim_create_autocmd({"TermOpen", "BufEnter"}, {
     end
 })
 
-
--- TODO
---[[
-vim.keymap.set('i', '{<leader>', '{<Esc>li ', { desc = "I want my nice things with curly brackets." })
-vim.keymap.set('i', '{<$CR>', '{<CR><Tab><CR>}<Esc>k$a',
-        { desc = "I want my nice things with curly brackets." })
-        ]]
 
 --------------------------------------------
 
